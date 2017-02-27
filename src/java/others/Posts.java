@@ -123,7 +123,6 @@ public class Posts {
             Logger.getLogger(Posts.class.getName()).log(Level.SEVERE, null, ex);
         }
         getPostsFromDB();
-        // Update the currentPost so that its details appear after navigation
         currentPost = getPostByTitle(currentPost.getTitle());
         return "viewPost";
     }

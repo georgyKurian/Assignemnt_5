@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
         <h1> #{posts.currentPost.title}</h1>
-        <p>Created by #{posts.currentPost.user_id} at #{posts.currentPost.createdTime}</p>
+        <p>Created by #{users.getUsernameById(sts.currentPost.user_id)} at #{posts.currentPost.createdTime}</p>
         <p>#{posts.currentPost.contents}</p>
         <h:form>
             <c:if test="#{login.isLoggedIn}">

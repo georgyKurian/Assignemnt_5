@@ -26,11 +26,10 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Users {
     private List<User> users;
-    private static Users instance;
+    private static Users instance = new Users();
     
     public Users() {
         getUsersFromDB();
-        instance = this;
     }
     
     public List<User> getUsers() {
