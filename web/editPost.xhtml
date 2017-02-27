@@ -13,7 +13,7 @@
                 <p><h:inputTextarea value="#{posts.currentPost.contents}"/></p>
                 <h:commandButton action="#{posts.savePost(login.currentuser)}" value="Save"/>
             </c:if>
-            
+
             <c:if test="#{!login.isLoggedIn}">
                 <p>Must be logged in to add or edit</p>
             </c:if>

@@ -22,12 +22,12 @@
             <h:form>
                 <c:if test="#{login.isLoggedIn}">
                     <h:commandButton action="#{posts.addPost()}" value="Add Post"/>
-            </c:if>
-            <c:if test="#{!login.isLoggedIn}">
-                <h:button value="Login" outcome="login" />
-            </c:if>
+                </c:if>
+                <c:if test="#{!login.isLoggedIn}">
+                    <h:button value="Login" outcome="login" />
+                </c:if>
+            </h:form>
         </h:form>
-    </h:form>
-</h:body>
+    </h:body>
 </html>
 

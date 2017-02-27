@@ -27,11 +27,17 @@ public class Posts {
     private List<Post> posts;
     private Post currentPost;
 
+    /**
+     *
+     */
     public Posts() {
         currentPost = new Post(-1, -1, "", null, "");
         getPostsFromDB();
     }
 
+    /**
+     * 
+     */
     private void getPostsFromDB() {
         try (Connection conn = DBUtils.getConnection()) {
             posts = new ArrayList<>();
@@ -54,14 +60,27 @@ public class Posts {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Post> getPosts() {
         return posts;
     }
 
+    /**
+     *
+     * @return
+     */
     public Post getCurrentPost() {
         return currentPost;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Post getPostById(int id) {
         for (Post p : posts) {
             if (p.getId() == id) {
@@ -71,6 +90,11 @@ public class Posts {
         return null;
     }
 
+    /**
+     *
+     * @param title
+     * @return
+     */
     public Post getPostByTitle(String title) {
         for (Post p : posts) {
             if (p.getTitle().equals(title)) {
@@ -80,20 +104,37 @@ public class Posts {
         return null;
     }
 
+    /**
+     *
+     * @param post
+     * @return
+     */
     public String viewPost(Post post) {
         currentPost = post;
         return "viewPost";
     }
 
+    /**
+     *
+     * @return
+     */
     public String addPost() {
         currentPost = new Post(-1, -1, "", null, "");
         return "editPost";
     }
 
+    /**
+     *
+     * @return
+     */
     public String editPost() {
         return "editPost";
     }
 
+    /**
+     *
+     * @return
+     */
     public String cancelPost() {
         // currentPost can be corrupted -- reset it based on the DB
         int id = currentPost.getId();
@@ -102,9 +143,14 @@ public class Posts {
         return "viewPost";
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public String savePost(User user) {
         try (Connection conn = DBUtils.getConnection()) {
-           if (currentPost.getId() >= 0) {
+            if (currentPost.getId() >= 0) {
                 String sql = "UPDATE posts SET title = ?, contents = ? WHERE id = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, currentPost.getTitle());
@@ -126,14 +172,18 @@ public class Posts {
         currentPost = getPostByTitle(currentPost.getTitle());
         return "viewPost";
     }
-    
-     public String deletePost() {
+
+    /**
+     *
+     * @return
+     */
+    public String deletePost() {
         try (Connection conn = DBUtils.getConnection()) {
-               String sql = "DELETE FROM posts WHERE id = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(1, currentPost.getId());
-                pstmt.execute();
-           
+            String sql = "DELETE FROM posts WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, currentPost.getId());
+            pstmt.execute();
+
         } catch (SQLException ex) {
             Logger.getLogger(Posts.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,6 +191,5 @@ public class Posts {
         currentPost = null;
         return "index";
     }
-     
-     
+
 }

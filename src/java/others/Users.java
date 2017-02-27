@@ -25,37 +25,66 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public class Users {
+
     private List<User> users;
     private static Users instance = new Users();
-    
+
+    /**
+     *
+     */
     public Users() {
         getUsersFromDB();
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public List<User> getUsers() {
         return users;
     }
 
+    /**
+     *
+     * @param users
+     */
     public void setUsers(List<User> users) {
         this.users = users;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Users getInstance() {
         return instance;
     }
 
+    /**
+     *
+     * @param instance
+     */
     public static void setInstance(Users instance) {
         Users.instance = instance;
     }
-    
-    public String getUsernameById(int id){
-        for(User u: users){
-            if(u.getId()==id)
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public String getUsernameById(int id) {
+        for (User u : users) {
+            if (u.getId() == id) {
                 return u.getUsername();
+            }
         }
         return null;
     }
     
+    /**
+     * 
+     */
     private void getUsersFromDB() {
         try (Connection conn = DBUtils.getConnection()) {
             users = new ArrayList<>();
@@ -74,5 +103,5 @@ public class Users {
             users = new ArrayList<>();
         }
     }
-    
+
 }
